@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Koseli – Menu</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ---------- Colours (change them here) ---------- */
+    :root {
+      color-scheme: light;
+      --bg: #fbf6ea;
+      --paper: #fffdf7;
+      --ink: #2b1a1f;
+      --muted: #7b6a6e;
+      --wine: #7a1f3d;
+      --wine-light: #a43257;
+      --gold: #b8893a;
+      --line: #e6d9bd;
+
+      box-sizing: border-box;
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      /* keeps section titles from hiding under the sticky bars */
+      scroll-padding-top: calc(env(safe-area-inset-top, 0px) + 110px);
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      background-image: radial-gradient(#e9dcc0 1px, transparent 1px);
+      background-size: 22px 22px;
+      color: var(--ink);
+      font-family: Poppins, system-ui, sans-serif;
+      line-height: 1.5;
+    }
+
+    /* ---------- Phone bar (top) ---------- */
+    .top-bar {
+      position: sticky;
+      top: env(safe-area-inset-top, 0px);
+      z-index: 10;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      padding: 9px 16px;
+      background: var(--wine);
+      color: #f6e7c1;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+    }
+
+    .top-bar a {
+      padding: 3px 16px;
+      border-radius: 999px;
+      background: #f6e7c1;
+      color: var(--wine);
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      animation: ring 3s ease-in-out infinite;
+    }
+
+    .top-bar a:hover {
+      transform: scale(1.07);
+      box-shadow: 0 0 0 4px rgba(246, 231, 193, 0.35);
+    }
+
+    /* small shake every few seconds, like a ringing phone */
+    @keyframes ring {
+      0%, 88%, 100% { transform: rotate(0); }
+      91% { transform: rotate(-4deg); }
+      94% { transform: rotate(4deg); }
+      97% { transform: rotate(-2deg); }
+    }
+
+    /* ---------- Header ---------- */
+    .site-header {
+      padding: 38px 20px 16px;
+      text-align: center;
+      animation: drop-in 0.9s ease both;
+    }
+
+    .kicker {
+      color: var(--gold);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 6px 0 0;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(46px, 12vw, 86px);
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: 2px;
+      /* gold shine that slides across the name */
+      background: linear-gradient(100deg, var(--wine) 30%, var(--gold) 50%, var(--wine) 70%);
+      background-size: 250% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: shine 6s linear infinite;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      max-width: 320px;
+      margin: 10px auto 0;
+      color: var(--gold);
+    }
+
+    .divider::before,
+    .divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold));
+    }
+
+    .divider::after { transform: scaleX(-1); }
+
+    .tagline {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-family: "Playfair Display", serif;
+      font-size: 14px;
+      font-style: italic;
+    }
+
+    @keyframes shine { to { background-position: -250% 0; } }
+    @keyframes drop-in { from { opacity: 0; transform: translateY(-18px); } }
+
+    /* ---------- Category links ---------- */
+    .category-nav {
+      position: sticky;
+      top: calc(env(safe-area-inset-top, 0px) + 44px);
+      z-index: 9;
+      padding: 10px 16px;
+      background: var(--bg);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      overflow-x: auto;
+      white-space: nowrap;
+      text-align: center;
+      scrollbar-width: none;
+    }
+
+    .category-nav a {
+      position: relative;
+      display: inline-block;
+      margin: 0 4px;
+      padding: 5px 14px;
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    /* underline that draws itself on hover */
+    .category-nav a::after {
+      content: "";
+      position: absolute;
+      left: 14px;
+      right: 14px;
+      bottom: 1px;
+      height: 2px;
+      background: var(--wine);
+      transform: scaleX(0);
+      transition: transform 0.3s;
+    }
+
+    .category-nav a:hover,
+    .category-nav a:focus-visible {
+      color: var(--wine);
+      outline: none;
+    }
+
+    .category-nav a:hover::after,
+    .category-nav a:focus-visible::after {
+      transform: scaleX(1);
+    }
+
+    /* ---------- Menu sheet ---------- */
+    .sheet {
+      width: calc(100% - 24px);
+      max-width: 1000px;
+      margin: 24px auto;
+      padding: 6px;
+      background: var(--paper);
+      border: 1px solid var(--gold);
+      box-shadow: 0 10px 40px rgba(122, 31, 61, 0.12);
+    }
+
+    .menu {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 6px 44px;
+      padding: 12px 20px 26px;
+      border: 3px double var(--gold);
+    }
+
+    @media (min-width: 760px) {
+      .menu { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* sections start hidden and fade up when scrolled into view */
+    .menu section {
+      padding-top: 22px;
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .menu section.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    h2 {
+      margin: 0 0 4px;
+      color: var(--wine);
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-align: center;
+    }
+
+    h2::after {
+      content: "❖";
+      display: block;
+      margin-top: 2px;
+      color: var(--gold);
+      font-size: 12px;
+    }
+
+    .note {
+      margin: 0 0 8px;
+      color: var(--muted);
+      font-size: 13px;
+      font-style: italic;
+      text-align: center;
+    }
+
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    /* each row: name ........ price (the dots are the ::after) */
+    li {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      padding: 7px 8px;
+      border-radius: 8px;
+      font-size: 15px;
+      cursor: default;
+      transition: background 0.25s, transform 0.25s, padding 0.25s;
+    }
+
+    li::after {
+      content: "";
+      order: 1;
+      flex: 1;
+      border-bottom: 2px dotted var(--line);
+      transform: translateY(-4px);
+    }
+
+    li .name { order: 0; transition: color 0.25s; }
+    li .price { order: 2; color: var(--wine); font-weight: 600; white-space: nowrap; }
+
+    li:hover {
+      padding-left: 14px;
+      background: linear-gradient(90deg, #f7e9ec, transparent);
+      transform: translateX(6px);
+    }
+
+    li:hover .name { color: var(--wine); }
+    li:hover::after { border-color: var(--wine-light); }
+
+    li:hover .name::before {
+      content: "➤ ";
+      color: var(--gold);
+      font-size: 11px;
+    }
+
+    /* ---------- Footer ---------- */
+    .site-footer {
+      padding: 10px 16px calc(34px + env(safe-area-inset-bottom, 0px));
+      color: var(--muted);
+      font-family: "Playfair Display", serif;
+      font-size: 14px;
+      font-style: italic;
+      text-align: center;
+    }
+
+    .site-footer a {
+      color: var(--wine);
+      font-family: Poppins, sans-serif;
+      font-style: normal;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    /* people who turned animations off get a calm page */
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+      .menu section { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- To change the phone number, edit it here and in the footer below -->
+  <div class="top-bar">
+    <span>📞 Call to order</span>
+    <a href="tel:+9779702692122">+977 9702692122</a>
+  </div>
+
+  <header class="site-header">
+    <div class="kicker">Restaurant</div>
+    <h1>Koseli</h1>
+    <div class="divider">✦</div>
+    <p class="tagline">A Place For Every Taste · Fast Food Menu</p>
+  </header>
+
+  <!-- links are added by the script at the bottom -->
+  <nav class="category-nav" id="category-nav" aria-label="Menu categories"></nav>
+
+  <div class="sheet">
+    <main class="menu" id="menu"></main>
+  </div>
+
+  <footer class="site-footer">
+    📍 Biratnagar · <a href="tel:+9779702692122">+977 9702692122</a>
+  </footer>
+
+  <script>
+    // Currency shown before every price
+    var CURRENCY = "Rs.";
+
+    // MENU DATA
+    // Each item is ["Name", "Price"]. Leave the price out and only the name shows.
+    // To add an item, copy one line and change it. To add a category, copy a whole { ... } block.
+    var MENU = [
+  {
+    id: "momo",
+    title: "Momo",
+    items: [
+      ["Veg Steam Momo", "100"],
+      ["Veg Jhol Momo", "120"],
+      ["Veg Chilli Momo", "130"],
+      ["Veg Fried Momo", "150"],
+      ["Chicken Steam Momo", "120"],
+      ["Chicken Jhol Momo", "200"],
+      ["Chicken Chilli Momo", "250"],
+      ["Chicken Fried Momo", "200"],
+      ["Buff Steam Momo", "200"],
+      ["Buff Jhol Momo", "250"],
+      ["Buff Chilli Momo", "300"],
+      ["Buff Fried Momo", "350"],
+      ["Mutton Steam Momo", "250"],
+      ["Mutton Jhol Momo", "300"],
+      ["Mutton Chilli Momo", "350"],
+      ["Mutton Fried Momo", "350"],
+      ["Pork Steam Momo", "200"],
+      ["Pork Jhol Momo", "250"],
+      ["Pork Chilli Momo", "250"],
+      ["Pork Fried Momo", "280"],
+    ]
+  },
+  {
+    id: "chowmein",
+    title: "Chowmein",
+    items: [
+      ["Veg Chowmein"],
+      ["Paneer Chowmein"],
+      ["Buff Chowmein"],
+      ["Chicken Chowmein"],
+      ["Egg Chowmein"],
+    ]
+  },
+  {
+    id: "biryani",
+    title: "Biryani",
+    note: "Prices shown as Plate / Box.",
+    items: [
+      ["Veg Biryani", "110 / 120"],
+      ["Chicken Biryani", "110 / 130"],
+      ["Mutton Biryani", "250 / 300"],
+      ["Egg Biryani", "150 / 150"],
+      ["Hyderabadi Biryani"],
+      ["Fish Biryani"],
+      ["Kolkata Biryani"],
+      ["Mughlai Biryani"],
+    ]
+  },
+  {
+    id: "friedrice",
+    title: "Fried Rice",
+    items: [
+      ["Veg Fried Rice"],
+      ["Chicken Fried Rice"],
+      ["Egg Fried Rice"],
+    ]
+  },
+  {
+    id: "chatpate",
+    title: "Chatpate",
+    items: [
+      ["Veg Chatpate"],
+      ["Non-veg Chatpate"],
+      ["Chicken Chatpate"],
+    ]
+  },
+  {
+    id: "puri",
+    title: "Puri Tarkari",
+    items: [
+      ["Puri Tarkari"],
+    ]
+  },
+  {
+    id: "chana",
+    title: "Chana Chura",
+    items: [
+      ["Chana Chura"],
+    ]
+  },
+  {
+    id: "thukpa",
+    title: "Thukpa",
+    items: [
+      ["Veg Thukpa", "150"],
+      ["Chicken Thukpa", "200"],
+      ["Egg Thukpa", "170"],
+      ["Buff Thukpa", "190"],
+    ]
+  },
+  {
+    id: "roll",
+    title: "Rolls",
+    items: [
+      ["Chicken Roll", "180"],
+      ["Chicken Sekuwa Roll", "200"],
+      ["Egg Roll", "130"],
+      ["Egg Chicken Roll", "220"],
+      ["Paneer Roll", "180"],
+      ["Veg Roll", "120"],
+      ["Sausage Roll", "160"],
+      ["Spring Roll", "120"],
+      ["Chicken Cheese Roll", "240"],
+      ["Mushroom Roll", "170"],
+      ["Mixed Roll (Chicken + Egg)", "250"],
+    ]
+  },
+  {
+    id: "pizza",
+    title: "Pizza",
+    items: [
+      ["Chicken Pizza (Large)", "650"],
+      ["Cheese Pizza", "550"],
+      ["Veg Pizza", "500"],
+      ["Chicken Mushroom Pizza", "580"],
+      ["Sausage Pizza", "550"],
+      ["Buff Pizza", "550"],
+      ["Mix Pizza", "550"],
+      ["Paneer Pizza"],
+      ["Chicken Salami Pizza", "650"],
+      ["Margherita Pizza", "500"],
+    ]
+  },
+  {
+    id: "pakoda",
+    title: "Pakoda",
+    items: [
+      ["Veg Pakoda"],
+      ["Onion Pakoda"],
+      ["Paneer Pakoda"],
+      ["Mushroom Pakoda"],
+      ["Chicken Pakoda"],
+      ["Mixed Veg Pakoda"],
+      ["Dal Pakoda"],
+    ]
+  },
+  {
+    id: "paratha",
+    title: "Paratha",
+    items: [
+      ["Aloo Paratha"],
+      ["Plain Paratha"],
+      ["Paneer Paratha"],
+      ["Chicken Paratha"],
+      ["Egg Paratha"],
+      ["Cheese Paratha"],
+      ["Mixed Veg Paratha"],
+      ["Onion Paratha"],
+    ]
+  },
+  {
+    id: "keema",
+    title: "Keema Noodles",
+    items: [
+      ["Chicken Keema Noodles", "220"],
+      ["Mutton Keema Noodles", "300"],
+      ["Buff Keema Noodles", "280"],
+      ["Mixed Keema Noodles", "280"],
+      ["Spicy Keema Noodles", "240"],
+    ]
+  },
+  {
+    id: "roti",
+    title: "Roti",
+    items: [
+      ["Plain Roti"],
+      ["Butter Roti"],
+      ["Naan Roti"],
+      ["Cheese Roti"],
+      ["Tandoori Roti"],
+    ]
+  },
+  {
+    id: "khana",
+    title: "Khana Set",
+    items: [
+      ["Dal Bhat Set", "200"],
+      ["Chicken Khana Set", "270"],
+      ["Mutton Khana Set", "350-400"],
+      ["Pork Khana Set", "350-400"],
+      ["Egg Khana Set", "250"],
+      ["Thakali Khana Set", "500"],
+    ]
+  },
+  {
+    id: "sausage",
+    title: "Sausage",
+    items: [
+      ["Chicken Sausage", "60 / piece"],
+      ["Buff Sausage", "80 / piece"],
+      ["Pork Sausage", "100 / piece"],
+      ["Cheese Sausage", "120 / piece"],
+    ]
+  },
+  {
+    id: "burger",
+    title: "Burger",
+    items: [
+      ["Chicken Burger", "100-180"],
+      ["Veg Burger", "100-120"],
+      ["Egg Burger", "100-140"],
+      ["Mushroom Burger", "150"],
+      ["Fish Burger", "200"],
+      ["Paneer Burger", "170"],
+      ["BBQ Chicken Burger", "250"],
+      ["Crispy Chicken Burger", "270"],
+    ]
+  },
+  {
+    id: "sandwich",
+    title: "Sandwich",
+    items: [
+      ["Veg Sandwich", "120"],
+      ["Chicken Sandwich", "200"],
+      ["Cheese Sandwich", "180"],
+      ["Grilled Sandwich", "200"],
+      ["Egg Sandwich", "150"],
+      ["Veg Cheese Sandwich", "200"],
+    ]
+  },
+  {
+    id: "gravy",
+    title: "Gravy",
+    items: [
+      ["Egg Curry", "280"],
+      ["Aloo Dum", "180"],
+      ["Fish Curry (250g)", "450"],
+      ["Chicken Kadai (150g with bone)", "550"],
+      ["Chicken Curry", "500"],
+      ["Mutton Curry", "750"],
+      ["Paneer Curry (250g)", "450"],
+      ["Matar Paneer (250g)", "470"],
+      ["Mix Vegetable Curry", "350"],
+    ]
+  },
+  {
+    id: "snacks",
+    title: "Snacks",
+    items: [
+      ["Samosa", "35 / piece"],
+      ["Samosa Chat", "100"],
+      ["Pani Puri", "80 / plate"],
+      ["French Fry", "150"],
+      ["Dahi Chura", "100 / plate"],
+    ]
+  },
+    ];
+
+    var nav = document.getElementById("category-nav");
+    var menuEl = document.getElementById("menu");
+
+    // Stops names like "Tom & Jerry" from breaking the HTML
+    function escapeHtml(text) {
+      return text.replace(/[&<>"]/g, function (ch) {
+        return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[ch];
+      });
+    }
+
+    // Build the category links and the menu sections
+    MENU.forEach(function (category) {
+      nav.insertAdjacentHTML(
+        "beforeend",
+        '<a href="#' + category.id + '">' + escapeHtml(category.title) + "</a>"
+      );
+
+      var html = '<section id="' + category.id + '">';
+      html += "<h2>" + escapeHtml(category.title) + "</h2>";
+
+      if (category.note) {
+        html += '<p class="note">' + escapeHtml(category.note) + "</p>";
+      }
+
+      html += "<ul>";
+      category.items.forEach(function (item) {
+        var name = item[0];
+        var price = item[1];
+        html += '<li><span class="name">' + escapeHtml(name) + "</span>";
+        if (price) {
+          html += '<span class="price">' + CURRENCY + " " + escapeHtml(price) + "</span>";
+        }
+        html += "</li>";
+      });
+      html += "</ul></section>";
+
+      menuEl.insertAdjacentHTML("beforeend", html);
+    });
+
+    // Fade each section in when it scrolls into view
+    var sections = document.querySelectorAll(".menu section");
+
+    if ("IntersectionObserver" in window) {
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.08 });
+
+      sections.forEach(function (section) { observer.observe(section); });
+    } else {
+      // older browsers: just show everything
+      sections.forEach(function (section) { section.classList.add("visible"); });
+    }
+  </script>
+
+</body>
+</html>
